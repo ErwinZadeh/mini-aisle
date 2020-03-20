@@ -12,6 +12,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
+            <h1 className="App-title">Mini AISLE!</h1>
+            <h4><i>Use This App!</i></h4>
           </header>
           <br />
           <main>
