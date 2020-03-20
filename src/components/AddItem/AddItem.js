@@ -11,7 +11,6 @@ class AddItem extends Component {
         this.props.history.push('/Stores')
     }
 
-
     render() {
         return (
             <div>
@@ -22,6 +21,5 @@ class AddItem extends Component {
         )
     }
 }
-
 
 export default connect()(AddItem);
