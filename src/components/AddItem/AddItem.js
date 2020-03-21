@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 
 class AddItem extends Component {
 
-    State ={
-        itemInfo: {
-            itemName: '',
-            amountNumber: 0,
-        }
-    }
+    // State ={
+    //     itemInfo: {
+    //         itemName: '',
+    //         amountNumber: 0,
+    //     }
+    // }
     
     handleItemChange = (propertyName, event) => {
         console.log('value: ', event.target.value)
         
         this.setState({
             itemInfo: {
-                ...this.state.itemInfo,
+                ...this.state,
                 [propertyName]: event.target.value
             }    
         })
@@ -37,11 +37,11 @@ class AddItem extends Component {
 
                 <label>Name of Item: </label>
                 {/* <input onChange={this.handleItemChange} /><br/> */}
-                <input value={this.state.itemName} placeholder="Item Name" type="text"
+                <input placeholder="Item Name" type="text"
                 onChange={(event) => this.handleItemChange('itemName', event)} /><br/>
 
                 <label>Amount: </label>
-                <input value={this.state.amountNumber} placeholder="Amount" type="number"
+                <input placeholder="Amount" type="number"
                 onChange={(event) => this.handleItemChange('amountNumber', event)} /><br/>
 
                 <button onClick={this.handleItemClick}>ADD ITEM</button><br/>
