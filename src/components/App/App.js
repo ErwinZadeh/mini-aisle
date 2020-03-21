@@ -22,6 +22,7 @@ class App extends Component {
             <Route path='/MyList' component={MyList} />
             <Route path='/Stores' component={Stores} />
           </main>
+          <footer className="App-footer"></footer>
         </div>
       </Router>
     );

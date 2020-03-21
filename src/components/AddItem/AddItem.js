@@ -21,6 +21,8 @@ class AddItem extends Component {
             }    
         })
     }
+
+    
     
     handleMyListClick = () => {
         this.props.history.push('/MyList')
@@ -37,17 +39,26 @@ class AddItem extends Component {
 
                 <label>Name of Item: </label>
                 {/* <input onChange={this.handleItemChange} /><br/> */}
-                <input placeholder="Item Name" type="text"
+                <input placeholder="item name" type="text"
                 onChange={(event) => this.handleItemChange('itemName', event)} /><br/>
 
                 <label>Amount: </label>
-                <input placeholder="Amount" type="number"
-                onChange={(event) => this.handleItemChange('amountNumber', event)} /><br/>
+                <input placeholder="amount" type="number"
+                onChange={(event) => this.handleItemChange('amountNumber', event)} />
 
-                <button onClick={this.handleItemClick}>ADD ITEM</button><br/>
+                <label> Unit: </label>
+                <input placeholder="unit" type="text"
+                onChange={(event) => this.handleItemChange('amountUnit', event)} /><br/>
 
-                <button onClick={this.handleMyListClick}>My List</button>
-                <button onClick={this.handleStoresClick}>Stores</button>
+                <label>Store: </label>
+                <input placeholder="store" type="text"
+                onChange={(event) => this.handleItemChange('shoppingStore', event)} /><br/>
+
+                <button onClick={this.handleAddItemClick}>ADD ITEM</button><br/>
+                <footer>
+                    <button onClick={this.handleMyListClick}>My List</button>
+                    <button onClick={this.handleStoresClick}>Stores</button>
+                </footer>
             </div>
         )
     }
