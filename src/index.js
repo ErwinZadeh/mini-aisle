@@ -9,16 +9,41 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger'
 
 
+let initialState ={
+    itemName: '',
+    amountNumber: 0,
+    amountUnit: 'other',
+    shoppingStore: 'other'
+}
+  
+let AddItemInfo = (state = initialState, action) => {
+    switch (action.type) {
+        case '1':
+          return { ...state, itemName: action.payload }
+        case '2':
+          return { ...state, amountNumber: action.payload }
+        case '3':
+          return { ...state, amountUnit: action.payload }
+        case '4':
+          return { ...state, shoppingStore: action.payload }
+        case 'RESET':
+          return initialState
+        default: 
+          return state
+      }
+}
+  
 let store = createStore(
     //reducers
     combineReducers({
-        
+        AddItemInfo
     }),
     //logger/middlewares
     applyMiddleware(
         logger
     )
-)
+  )
+
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

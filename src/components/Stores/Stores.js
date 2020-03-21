@@ -14,7 +14,7 @@ class Stores extends Component {
     render() {
         return (
             <div>
-                <h1>This is Stores View!</h1>
+                <header><h1>Stores</h1></header>
                 <button onClick={this.handleAddItemClick}>Add Item</button>
                 <button onClick={this.handleMyListClick}>My List</button>
             </div>

@@ -14,7 +14,7 @@ class MyList extends Component {
     render() {
         return (
             <div>
-                <h1>This is My List View!</h1>
+                <header><h1>My List</h1></header>
                 <button onClick={this.handleAddItemClick}>Add Item</button>
                 <button onClick={this.handleStoresClick}>Stores</button>
 
