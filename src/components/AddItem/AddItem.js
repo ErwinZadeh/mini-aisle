@@ -26,7 +26,7 @@ class AddItem extends Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleAddItemClick = (event) => {
         event.preventDefault();
         console.log(`Adding Item`, this.state.newItem);
         // TODO - axios request to server to add item
@@ -43,6 +43,23 @@ class AddItem extends Component {
             console.log('Error posting to server', error)
         })
     }
+
+    getAllItems = () => {
+        axios({
+            method: 'GET',
+            url: '/item'
+        }).then((response) => {
+
+            this.props.dispatch({
+                type: 'SET_ITEMS',
+                payload: response.data
+            })
+
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
 
 
 

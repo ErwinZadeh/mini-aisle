@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import AddItem from '../AddItem/AddItem'
+
+// import axios from 'axios';
 
 class MyList extends Component {
 
-    componentDidMount = () => {
-        this.getAllItems();
-    }
+    // componentDidMount = () => {
+    //     this.getAllItems();
+    // }
 
-    getAllItems = () => {
-        axios({
-            method: 'GET',
-            url: '/item'
-        }).then((response) => {
+    // getAllItems = () => {
+    //     axios({
+    //         method: 'GET',
+    //         url: '/item'
+    //     }).then((response) => {
 
-            this.props.dispatch({
-                type: 'SET_ITEMS',
-                payload: response.data
-            })
+    //         this.props.dispatch({
+    //             type: 'SET_ITEMS',
+    //             payload: response.data
+    //         })
 
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
 
     handleAddItemClick = () => {
@@ -37,6 +39,7 @@ class MyList extends Component {
         return (
             <div>
                 <header><h1>My List</h1></header>
+                {/* <AddItem getAllItems={this.getAllItems} /> */}
                 <button onClick={this.handleAddItemClick}>Add Item</button>
                 <button onClick={this.handleStoresClick}>Stores</button>
 
@@ -45,4 +48,9 @@ class MyList extends Component {
     }
 }
 
-export default connect()(MyList);
+const putReduxStateOnProps = (reduxState) => ({
+    reduxState
+});
+
+
+export default connect(putReduxStateOnProps)(MyList);
