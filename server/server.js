@@ -1,18 +1,16 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
+const booksRouter = require('./routes/item.router.js');
 
-const port = process.env.PORT || 5000;
+const app = express();
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-/** ---------- MIDDLEWARE ---------- **/
-app.use(bodyParser.json()); // needed for angular requests
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('build'));
-
-/** ---------- EXPRESS ROUTES ---------- **/
+app.use('/books', booksRouter);
 
 
-/** ---------- START SERVER ---------- **/
-app.listen(port, function () {
-    console.log('Listening on port: ', port);
+// Start listening for requests on a specific port
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log('listening on port', PORT);
 });

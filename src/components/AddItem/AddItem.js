@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
 
 class AddItem extends Component {
 
-    // State ={
-    //     itemInfo: {
-    //         itemName: '',
-    //         amountNumber: 0,
-    //     }
-    // }
-    
+    state = {
+        newItem: {
+            itemName: '',
+            amountNumber: 0,
+            amountUnit: '',
+            category: '',
+            shoppingStore: ''
+        }
+    }
+
+
     handleItemChange = (propertyName, event) => {
         console.log('value: ', event.target.value)
-        
+
         this.setState({
-            itemInfo: {
-                ...this.state,
+            newItem: {
+                ...this.state.newItem,
                 [propertyName]: event.target.value
-            }    
+            }
         })
     }
 
-    
-    
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(`Adding Item`, this.state.newItem);
+        // TODO - axios request to server to add item
+        axios({
+            method: 'POST',
+            url: '/item',
+            data: this.state.newItem
+        }).then((reponse) => {
+            console.log('response', reponse);
+            alert('Item was added to your list!');
+            this.props.getAllItems();
+        }).catch((error) => {
+            alert(`Couldn't submit responses at this time`);
+            console.log('Error posting to server', error)
+        })
+    }
+
+
+
     handleMyListClick = () => {
         this.props.history.push('/MyList')
     }
@@ -36,29 +58,38 @@ class AddItem extends Component {
         return (
             <div>
                 <header><h1>Add Item</h1></header>
+                <form onSubmit={this.handleAddItemClick}>
 
-                <label>Name of Item: </label>
-                {/* <input onChange={this.handleItemChange} /><br/> */}
-                <input placeholder="item name" type="text"
-                onChange={(event) => this.handleItemChange('itemName', event)} /><br/>
+                    <label>Name of Item: </label>
 
-                <label>Amount: </label>
-                <input placeholder="amount" type="number"
-                onChange={(event) => this.handleItemChange('amountNumber', event)} />
+                    <input placeholder="item name" type="text" value={this.state.newItem.itemName}
+                        onChange={(event) => this.handleItemChange('itemName', event)} /><br />
 
-                <label> Unit: </label>
-                <input placeholder="unit" type="text"
-                onChange={(event) => this.handleItemChange('amountUnit', event)} /><br/>
+                    <label>Amount: </label>
+                    <input placeholder="amount" type="number" value={this.state.newItem.amountNumber}
+                        onChange={(event) => this.handleItemChange('amountNumber', event)} />
 
-                <label>Store: </label>
-                <input placeholder="store" type="text"
-                onChange={(event) => this.handleItemChange('shoppingStore', event)} /><br/>
+                    <label> Unit: </label>
+                    <input placeholder="unit" type="text" value={this.state.newItem.amountUnit}
+                        onChange={(event) => this.handleItemChange('amountUnit', event)} /><br />
 
-                <button onClick={this.handleAddItemClick}>ADD ITEM</button><br/>
+                    <label> Category: </label>
+                    <input placeholder="category" type="text" value={this.state.newItem.category}
+                        onChange={(event) => this.handleItemChange('category', event)} /><br />
+    
+
+                    <label>Store: </label>
+                    <input placeholder="store" type="text" value={this.state.newItem.shoppingStore}
+                        onChange={(event) => this.handleItemChange('shoppingStore', event)} /><br />
+
+                    <button type="submit">ADD ITEM</button><br />
+                </form>
+
                 <footer>
                     <button onClick={this.handleMyListClick}>My List</button>
                     <button onClick={this.handleStoresClick}>Stores</button>
                 </footer>
+
             </div>
         )
     }
@@ -67,6 +98,6 @@ class AddItem extends Component {
 const putReduxStateOnProps = (reduxState) => ({
     reduxState
 });
-  
+
 
 export default connect(putReduxStateOnProps)(AddItem);

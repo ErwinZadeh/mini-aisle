@@ -13,10 +13,11 @@ let initialState ={
     itemName: '',
     amountNumber: 0,
     amountUnit: 'other',
+    category: '',
     shoppingStore: 'other'
 }
   
-let AddItemInfo = (state = initialState, action) => {
+let itemInfo = (state = initialState, action) => {
     switch (action.type) {
         case '1':
           return { ...state, itemName: action.payload }
@@ -36,7 +37,7 @@ let AddItemInfo = (state = initialState, action) => {
 let store = createStore(
     //reducers
     combineReducers({
-        AddItemInfo
+        itemInfo
     }),
     //logger/middlewares
     applyMiddleware(
