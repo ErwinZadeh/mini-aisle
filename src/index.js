@@ -8,33 +8,16 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger'
 
-
-let initialState ={
-    itemName: '',
-    amountNumber: 0,
-    amountUnit: 'other',
-    category: '',
-    shoppingStore: 'other'
+  
+const itemInfo = (state = [], action) => {
+  if(action.type === 'SET_ITEMS'){
+    console.log('this is the payload', action.payload);
+    return action.payload
+  }
+  return state;
 }
   
-let itemInfo = (state = initialState, action) => {
-    switch (action.type) {
-        case '1':
-          return { ...state, itemName: action.payload }
-        case '2':
-          return { ...state, amountNumber: action.payload }
-        case '3':
-          return { ...state, amountUnit: action.payload }
-        case '4':
-          return { ...state, shoppingStore: action.payload }
-        case 'RESET':
-          return initialState
-        default: 
-          return state
-      }
-}
-  
-let store = createStore(
+const reduxStore = createStore(
     //reducers
     combineReducers({
         itemInfo
@@ -46,7 +29,7 @@ let store = createStore(
   )
 
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={reduxStore}><App /></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

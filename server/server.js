@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const booksRouter = require('./routes/item.router.js');
+const itemsRouter = require('./routes/item.router.js');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/books', booksRouter);
+app.use('/item', itemsRouter);
 
 
 // Start listening for requests on a specific port
