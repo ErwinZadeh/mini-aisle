@@ -14,6 +14,11 @@ class AddItem extends Component {
         }
     }
 
+    componentDidMount = () => {
+      this.getAllItems()  
+    }
+
+
 
     handleItemChange = (propertyName, event) => {
         console.log('value: ', event.target.value)
@@ -37,7 +42,7 @@ class AddItem extends Component {
         }).then((reponse) => {
             console.log('response', reponse);
             alert('Item was added to your list!');
-            this.props.getAllItems();
+            this.getAllItems();
         }).catch((error) => {
             alert(`Couldn't submit responses at this time`);
             console.log('Error posting to server', error)
