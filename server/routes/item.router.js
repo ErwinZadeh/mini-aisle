@@ -4,17 +4,18 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 // Get all items
-// router.get('/', (req, res) => {
-//   let queryText = '';
-//   pool.query(queryText).then(result => {
-//     // Sends back the results in an object
-//     res.send(result.rows);
-//   })
-//   .catch(error => {
-//     console.log('error getting items', error);
-//     res.sendStatus(500);
-//   });
-// });
+router.get('/', (req, res) => {
+  let queryText = 
+  'SELECT "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "category_id";';
+  pool.query(queryText).then(result => {
+    // Sends back the results in an object
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('error getting items', error);
+    res.sendStatus(500);
+  });
+});
 
 // Adds a new item to the list of items
 // Request body must be an item object with a name, amount number, amount unit, category & store.
