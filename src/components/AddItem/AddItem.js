@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import axios from 'axios';
 
 class AddItem extends Component {
@@ -13,12 +13,6 @@ class AddItem extends Component {
             shoppingStore: ''
         }
     }
-
-    componentDidMount = () => {
-      this.getAllItems()  
-    }
-
-
 
     handleItemChange = (propertyName, event) => {
         console.log('value: ', event.target.value)
@@ -42,31 +36,12 @@ class AddItem extends Component {
         }).then((reponse) => {
             console.log('response', reponse);
             alert('Item was added to your list!');
-            this.getAllItems();
+            
         }).catch((error) => {
             alert(`Couldn't submit responses at this time`);
             console.log('Error posting to server', error)
         })
     }
-
-    getAllItems = () => {
-        axios({
-            method: 'GET',
-            url: '/item'
-        }).then((response) => {
-
-            this.props.dispatch({
-                type: 'SET_ITEMS',
-                payload: response.data
-            })
-
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
-
-
-
 
     handleMyListClick = () => {
         this.props.history.push('/MyList')
@@ -117,9 +92,4 @@ class AddItem extends Component {
     }
 }
 
-const putReduxStateOnProps = (reduxState) => ({
-    reduxState
-});
-
-
-export default connect(putReduxStateOnProps)(AddItem);
+export default AddItem;

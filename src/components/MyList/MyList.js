@@ -1,10 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import AddItem from '../AddItem/AddItem'
-
-// import axios from 'axios';
+// import { connect } from 'react-redux';
+import axios from 'axios';
 
 class MyList extends Component {
+
+    state = {
+        itemsArray: []
+    }    
+    
+    componentDidMount = () => {
+        this.getAllItems()
+    }
+
+    getAllItems = () => {
+        axios({
+            method: 'GET',
+            url: '/item'
+        }).then((response) => {
+            console.log('this is repsonse', response.data);
+            this.setState({
+                itemsArray: response.data
+            });
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
 
     handleAddItemClick = () => {
         this.props.history.push('/')
@@ -27,9 +47,4 @@ class MyList extends Component {
     }
 }
 
-const putReduxStateOnProps = (reduxState) => ({
-    reduxState
-});
-
-
-export default connect(putReduxStateOnProps)(MyList);
+export default MyList;
