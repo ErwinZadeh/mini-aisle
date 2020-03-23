@@ -6,7 +6,7 @@ const pool = require('../modules/pool');
 // Get all items
 router.get('/', (req, res) => {
   let queryText = 
-  'SELECT "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "store_id";';
+  'SELECT "id", "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "store_id";';
   pool.query(queryText).then(result => {
     // Sends back the results in an object
     res.send(result.rows);
@@ -33,6 +33,22 @@ router.post('/',  (req, res) => {
       console.log(`Error adding new item`, error);
       res.sendStatus(500);
     });
+});
+
+// DELETE item
+router.delete('/:id', (req, res) => {
+  console.log('in /item DELETE', req.params.id)
+  const query = `DELETE FROM "item" WHERE id=$1;`;
+  const values = [req.params.id];
+  pool.query(query, values)
+      .then((result) => {
+          console.table(result)
+          res.sendStatus(200);
+      })
+      .catch((error) => {
+          console.log(`Error in DELETE`, error);
+          res.sendStatus(500);
+      });
 });
 
 module.exports = router;

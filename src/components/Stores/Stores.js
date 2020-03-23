@@ -27,8 +27,8 @@ class Stores extends Component {
     }
 
     deleteButton = (event) => {
-        console.log("delete me!", event.target.itemsArray.item_name);
-        axios.delete(`/item/${event.target.item_name}`, event.target.item_name)
+        console.log("delete me!", event.target.name);
+        axios.delete(`/item/${event.target.name}`)
             .then((response) => {
                 alert('Item was deleted from your list!');
                 console.table('in /item delete', response);
@@ -78,14 +78,14 @@ class Stores extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.itemsArray.map((itemsArray, i) => (
-                            <tr key={i}>
+                        {this.state.itemsArray.map((itemsArray) => (
+                            <tr key={itemsArray.id}>
                                 <td>{itemsArray.item_name}</td>
                                 <td>{itemsArray.amount}</td>
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
-                                <td><button name={i} onClick={this.state.deleteButton}>Delete</button></td>
+                                <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>
