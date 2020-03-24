@@ -24,6 +24,7 @@ CREATE TABLE "store" (
 CREATE TABLE "item" (
   "id" SERIAL PRIMARY KEY ,
   "item_name" VARCHAR(50) NOT NULL,
+  "status" VARCHAR(50) NOT NULL,
   "amount" INT,
   "price" INT,
   "user_id" INT REFERENCEs "user",

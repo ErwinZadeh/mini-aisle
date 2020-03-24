@@ -26,16 +26,18 @@ class Stores extends Component {
         })
     }
 
-    editButton = (id) => {
-        axios.put(`/item/${id}`)
+    editButton = (id, status) => {
+        // let currentStatus = itemsArray.status;
+        axios.put(`/item/${id}`, {key: status})
           .then(response => {
+            console.log('back from PUT/server:', response);
             this.getAllItems();
           })
           .catch( error => {
             console.log('Error in put', error);
             alert('Could not update item at this time. Try again later.');
           })
-    }
+    }    
     
     deleteButton = (event) => {
         console.log("delete me!", event.target.name);
@@ -63,20 +65,6 @@ class Stores extends Component {
         return (
             <div>
                 <header><h1>Stores</h1></header>
-                {/* <h2>{JSON.stringify(this.props.reduxState)}</h2> */}
-
-                {/* <ul>
-                    {
-                        this.state.itemsArray.map((itemsArray, i) =>
-                            <li key={i}>
-                                {itemsArray.item_name}, 
-                                {itemsArray.amount},
-                                {itemsArray.amount_id},
-                                {itemsArray.category_id},
-                                {itemsArray.store_id}
-                            </li>)
-                    }
-                </ul> */}
 
                 <table className="itemTable">
                     <thead>
@@ -86,6 +74,7 @@ class Stores extends Component {
                             <th>Unit</th>
                             <th>Type</th>
                             <th>Store</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +85,8 @@ class Stores extends Component {
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
-                                <td><button onClick={ () => this.editButton(itemsArray.id) }>Edit</button></td>
+                                <td>{itemsArray.status}</td>
+                                <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>Toggle Status</button></td>
                                 <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}

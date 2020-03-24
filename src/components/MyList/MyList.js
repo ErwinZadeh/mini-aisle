@@ -26,11 +26,22 @@ class MyList extends Component {
         })
     }
 
+    // editButton = (id) => {
+    //     axios.put(`/item/${id}`)
+    //       .then(response => {
+    //         this.getAllItems();
+    //       })
+    //       .catch( error => {
+    //         console.log('Error in put', error);
+    //         alert('Could not update item at this time. Try again later.');
+    //       })
+    // }
+
     editButton = (id) => {
         axios({
             method: 'put',
             url: `/item/${id}`,
-            data: this.state.itemsArray.amount
+            data: this.itemsArray.amount
         }).then(response => {
             this.getAllItems();
           })

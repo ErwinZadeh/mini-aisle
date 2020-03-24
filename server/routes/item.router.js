@@ -4,22 +4,22 @@ const pool = require('../modules/pool');
 
 // Get all items
 router.get('/', (req, res) => {
-  let queryText = 
-  'SELECT "id", "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "store_id";';
+  let queryText =
+    'SELECT "id", "status", "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "store_id";';
   pool.query(queryText).then(result => {
-    console.log(`Got these items in the list:`, result.rows);
+    // console.log(`Got these items in the list:`, result.rows);
     // Sends back the results in an object
     res.send(result.rows);
   })
-  .catch(error => {
-    console.log('error getting items', error);
-    res.sendStatus(500);
-  });
+    .catch(error => {
+      console.log('error getting items', error);
+      res.sendStatus(500);
+    });
 });
 
 // Adds a new item to the list of items
 // Request body must be an item object with a name, amount number, amount unit, category & store.
-router.post('/',  (req, res) => {
+router.post('/', (req, res) => {
   let newItem = req.body;
   console.log(`Adding item`, newItem);
 
@@ -35,56 +35,54 @@ router.post('/',  (req, res) => {
     });
 });
 
-// // PUT Route
-// router.put('/item/:id', (req, res) => {
-//   console.log(req.params);
-//   const itemId = req.params.id;
-//   for(const galleryItem of galleryItems) {
-//       if(galleryItem.id == galleryId) {
-//           galleryItem.likes += 1;
-//       }
-//   }
-//   res.sendStatus(200);
-// }); // END PUT Route
-
 router.put('/:id', (req, res) => {
 
+  console.log('in item PUT:', req.params.id, req.body.key);
+
   const id = req.params.id;
-  console.log(req.params.id, req.body.amount, req.body);
-
-  let amount = req.body.amount;
-  console.log(amount);
-
-  let queryText = `
+  const key = req.body.key;
+  if (key === false) {
+    let bool = true;
+    queryText = `
       UPDATE "item"
-      SET "amount" = $1 
-      WHERE "id" = $2;
-      `
-  console.log(`Updating item ${id} with `, amount);
-
-  pool.query(queryText, [amount, id])
+      SET "status" = ${bool}
+      WHERE "id" = $1;`
+    pool.query(queryText, [id])
       .then((result) => {
-          res.sendStatus(200);
+        res.sendStatus(200);
       }).catch((err) => {
-          res.sendStatus(500);
+        res.sendStatus(500);
       })
+  } else {
+    let bool = false;
+    queryText = `
+      UPDATE "item"
+      SET "status" = ${bool}
+      WHERE "id" = $1;`
+    pool.query(queryText, [id])
+      .then((result) => {
+        res.sendStatus(200);
+      }).catch((err) => {
+        console.log('error with UPDATE', err);
+        res.sendStatus(500);
+      })
+  }
 });
-
-
+// kkk
 // DELETE item
 router.delete('/:id', (req, res) => {
   console.log('in /item DELETE', req.params.id)
   const query = `DELETE FROM "item" WHERE id=$1;`;
   const values = [req.params.id];
   pool.query(query, values)
-      .then((result) => {
-          console.table(result)
-          res.sendStatus(200);
-      })
-      .catch((error) => {
-          console.log(`Error in DELETE`, error);
-          res.sendStatus(500);
-      });
+    .then((result) => {
+      console.table(result)
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(`Error in DELETE`, error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
