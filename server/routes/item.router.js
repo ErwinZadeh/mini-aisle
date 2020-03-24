@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const pool = require('../modules/pool');
 
 // Get all items
@@ -8,6 +7,7 @@ router.get('/', (req, res) => {
   let queryText = 
   'SELECT "id", "item_name", "amount", "amount_id", "category_id", "store_id" FROM "item" ORDER BY "store_id";';
   pool.query(queryText).then(result => {
+    console.log(`Got these items in the list:`, result.rows);
     // Sends back the results in an object
     res.send(result.rows);
   })
@@ -34,6 +34,42 @@ router.post('/',  (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// // PUT Route
+// router.put('/item/:id', (req, res) => {
+//   console.log(req.params);
+//   const itemId = req.params.id;
+//   for(const galleryItem of galleryItems) {
+//       if(galleryItem.id == galleryId) {
+//           galleryItem.likes += 1;
+//       }
+//   }
+//   res.sendStatus(200);
+// }); // END PUT Route
+
+router.put('/:id', (req, res) => {
+
+  const id = req.params.id;
+  console.log(req.params.id, req.body.amount, req.body);
+
+  let amount = req.body.amount;
+  console.log(amount);
+
+  let queryText = `
+      UPDATE "item"
+      SET "amount" = $1 
+      WHERE "id" = $2;
+      `
+  console.log(`Updating item ${id} with `, amount);
+
+  pool.query(queryText, [amount, id])
+      .then((result) => {
+          res.sendStatus(200);
+      }).catch((err) => {
+          res.sendStatus(500);
+      })
+});
+
 
 // DELETE item
 router.delete('/:id', (req, res) => {

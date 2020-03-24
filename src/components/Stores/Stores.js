@@ -26,6 +26,17 @@ class Stores extends Component {
         })
     }
 
+    editButton = (id) => {
+        axios.put(`/item/${id}`)
+          .then(response => {
+            this.getAllItems();
+          })
+          .catch( error => {
+            console.log('Error in put', error);
+            alert('Could not update item at this time. Try again later.');
+          })
+    }
+    
     deleteButton = (event) => {
         console.log("delete me!", event.target.name);
         axios.delete(`/item/${event.target.name}`)
@@ -85,6 +96,7 @@ class Stores extends Component {
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
+                                <td><button onClick={ () => this.editButton(itemsArray.id) }>Edit</button></td>
                                 <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}
