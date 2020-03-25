@@ -15,7 +15,7 @@ class MyList extends Component {
     getAllItems = () => {
         axios({
             method: 'GET',
-            url: '/item'
+            url: '/myList'
         }).then((response) => {
             console.log('this is repsonse', response.data);
             this.setState({
