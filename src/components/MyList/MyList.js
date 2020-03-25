@@ -96,6 +96,7 @@ class MyList extends Component {
                             <th>Store</th>
                             <th>Type</th>
                             <th>Status</th>
+                            {/* <th>Status</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -106,12 +107,20 @@ class MyList extends Component {
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.store_id}</td>
                                 <td>{itemsArray.category_id}</td>
-                                {itemsArray.status
+
+                                {/* This is conditional rendering. 
+                                Means;
+                                if "True" or "?" render "Done", 
+                                if ":" or "False" render "ToDo" */}
+
+                                {/* {itemsArray.status
                                     ? <td>Done</td>
                                     : <td>TO Do</td>
-                                }
+                                } */}
 
-                                <td><button onClick={() => this.editButton(itemsArray.id, itemsArray.status)}>Toggle Status</button></td>
+                                {/* I just replaced the name of the current 
+                                "To Do/Done" button with above "conditional rendering" */}
+                                <td><button onClick={() => this.editButton(itemsArray.id, itemsArray.status)}>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
                                 <td><button name={itemsArray.id} onClick={(event) => this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}

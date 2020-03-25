@@ -87,12 +87,8 @@ class Stores extends Component {
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
-                                {itemsArray.status
-                                    ?<td>Done</td>
-                                    :<td>TO Do</td>
-                                }
-                                
-                                <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>Toggle Status</button></td>
+
+                                <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
                                 <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}
