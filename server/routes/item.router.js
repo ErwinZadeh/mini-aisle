@@ -41,34 +41,19 @@ router.put('/:id', (req, res) => {
 
   const id = req.params.id;
   const key = req.body.key;
-  if (key === false) {
-    let bool = true;
-    queryText = `
+  
+  let queryText = `
       UPDATE "item"
-      SET "status" = ${bool}
+      SET "status" = ${key}
       WHERE "id" = $1;`
-    pool.query(queryText, [id])
-      .then((result) => {
-        res.sendStatus(200);
-      }).catch((err) => {
-        res.sendStatus(500);
-      })
-  } else {
-    let bool = false;
-    queryText = `
-      UPDATE "item"
-      SET "status" = ${bool}
-      WHERE "id" = $1;`
-    pool.query(queryText, [id])
-      .then((result) => {
-        res.sendStatus(200);
-      }).catch((err) => {
-        console.log('error with UPDATE', err);
-        res.sendStatus(500);
-      })
-  }
+  pool.query(queryText, [id])
+  .then((result) => {
+    res.sendStatus(200);
+  }).catch((err) => {
+    res.sendStatus(500);
+  })
 });
-// kkk
+
 // DELETE item
 router.delete('/:id', (req, res) => {
   console.log('in /item DELETE', req.params.id)

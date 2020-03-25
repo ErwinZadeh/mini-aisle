@@ -27,8 +27,9 @@ class Stores extends Component {
     }
 
     editButton = (id, status) => {
-        // let currentStatus = itemsArray.status;
-        axios.put(`/item/${id}`, {key: status})
+        let newStatus = !status;
+        
+        axios.put(`/item/${id}`, {key: newStatus})
           .then(response => {
             console.log('back from PUT/server:', response);
             this.getAllItems();
@@ -62,6 +63,7 @@ class Stores extends Component {
     }
 
     render() {
+    
         return (
             <div>
                 <header><h1>Stores</h1></header>
@@ -85,7 +87,11 @@ class Stores extends Component {
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
-                                <td>{itemsArray.status}</td>
+                                {itemsArray.status
+                                    ?<td>Done</td>
+                                    :<td>TO Do</td>
+                                }
+                                
                                 <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>Toggle Status</button></td>
                                 <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
