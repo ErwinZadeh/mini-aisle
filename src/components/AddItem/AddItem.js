@@ -7,7 +7,7 @@ class AddItem extends Component {
     state = {
         newItem: {
             itemName: '',
-            amountNumber: 0,
+            amountNumber: '',
             amountUnit: '',
             category: '',
             shoppingStore: ''
@@ -58,7 +58,6 @@ class AddItem extends Component {
                 <form onSubmit={this.handleAddItemClick}>
 
                     <label>Name of Item: </label>
-
                     <input placeholder="item name" type="text" value={this.state.newItem.itemName}
                         onChange={(event) => this.handleItemChange('itemName', event)} /><br />
 
@@ -67,17 +66,62 @@ class AddItem extends Component {
                         onChange={(event) => this.handleItemChange('amountNumber', event)} />
 
                     <label> Unit: </label>
-                    <input placeholder="unit" type="text" value={this.state.newItem.amountUnit}
-                        onChange={(event) => this.handleItemChange('amountUnit', event)} /><br />
+                    <select className="unit-select" name="unit" placeholder="unit" type="text" 
+                        value={this.state.newItem.amountUnit}
+                        onChange={(event) => this.handleItemChange('amountUnit', event)}>
+                       <option value="0">Choose the unit</option>
+                       <option value="1">pcs</option>
+                       <option value="2">oz</option>
+                       <option value="3">Ib</option>
+                       <option value="4">gal</option>
+                       <option value="5">qt</option>
+                    </select><br />
+
+                    {/* <input placeholder="unit" type="text" value={this.state.newItem.amountUnit}
+                        onChange={(event) => this.handleItemChange('amountUnit', event)} /><br /> */}
 
                     <label> Category: </label>
-                    <input placeholder="category" type="text" value={this.state.newItem.category}
-                        onChange={(event) => this.handleItemChange('category', event)} /><br />
-    
+                    <select className="category-select" name="category" placeholder="category" type="text" 
+                        value={this.state.newItem.category}
+                        onChange={(event) => this.handleItemChange('category', event)}>
+                       <option value="0">Choose the category</option>
+                       <option value="1">Dairy</option>
+                       <option value="2">Meat</option>
+                       <option value="3">Tinned Can</option>
+                       <option value="4">Fruit and Vegetable</option>
+                       <option value="5">Drink</option>
+                       <option value="6">Frozen</option>
+                       <option value="7">Baked</option>
+                       <option value="8">Candy</option>
+                       <option value="9">Houseware</option>
+                       <option value="10">Other</option>
+                    </select><br />
+
+                    {/* <input placeholder="category" type="text" value={this.state.newItem.category}
+                        onChange={(event) => this.handleItemChange('category', event)} /><br /> */}
 
                     <label>Store: </label>
-                    <input placeholder="store" type="text" value={this.state.newItem.shoppingStore}
-                        onChange={(event) => this.handleItemChange('shoppingStore', event)} /><br />
+                    <select className="store-select" name="store" placeholder="store" type="text" 
+                        value={this.state.newItem.shoppingStore}
+                        onChange={(event) => this.handleItemChange('shoppingStore', event)}>
+                       <option value="0">Choose the store</option>
+                       <option value="1">Aldi</option>
+                       <option value="2">Target</option>
+                       <option value="3">Walmart</option>
+                       <option value="4">Cub Foods</option>
+                       <option value="5">Costco</option>
+                       <option value="6">Sam's Club</option>
+                       <option value="7">Trader Joe's</option>
+                       <option value="8">Hy-Vee</option>
+                       <option value="9">Whole Foods</option>
+                       <option value="10">Kowalsky</option>
+                       <option value="11">Lunds & Byerlys</option>
+                       <option value="12">Fresh Thyme</option>
+                       <option value="13">Other</option>
+                    </select><br />
+
+                    {/* <input placeholder="store" type="text" value={this.state.newItem.shoppingStore}
+                        onChange={(event) => this.handleItemChange('shoppingStore', event)} /><br /> */}
 
                     <button type="submit">ADD ITEM</button><br />
                 </form>
