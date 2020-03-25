@@ -90,18 +90,21 @@ class MyList extends Component {
                 <table className="itemTable">
                     <thead>
                         <tr>
+                            <th>Status</th>
                             <th>Item</th>
                             <th>Amount</th>
                             <th>Unit</th>
                             <th>Store</th>
                             <th>Type</th>
-                            <th>Status</th>
-                            {/* <th>Status</th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.itemsArray.map((itemsArray) => (
                             <tr key={itemsArray.id}>
+                                {/* I just replaced the name of the current 
+                                "To Do/Done" button with below "conditional rendering" */}
+                                <td><button onClick={() => this.editButton(itemsArray.id, itemsArray.status)}>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
+
                                 <td>{itemsArray.item_name}</td>
                                 <td>{itemsArray.amount}</td>
                                 <td>{itemsArray.amount_id}</td>
@@ -118,9 +121,6 @@ class MyList extends Component {
                                     : <td>TO Do</td>
                                 } */}
 
-                                {/* I just replaced the name of the current 
-                                "To Do/Done" button with above "conditional rendering" */}
-                                <td><button onClick={() => this.editButton(itemsArray.id, itemsArray.status)}>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
                                 <td><button name={itemsArray.id} onClick={(event) => this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}

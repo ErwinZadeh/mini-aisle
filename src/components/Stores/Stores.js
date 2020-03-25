@@ -71,24 +71,25 @@ class Stores extends Component {
                 <table className="itemTable">
                     <thead>
                         <tr>
+                            <th>Status</th>
                             <th>Item</th>
                             <th>Amount</th>
                             <th>Unit</th>
                             <th>Type</th>
                             <th>Store</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.itemsArray.map((itemsArray) => (
                             <tr key={itemsArray.id}>
+                                <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
+
                                 <td>{itemsArray.item_name}</td>
                                 <td>{itemsArray.amount}</td>
                                 <td>{itemsArray.amount_id}</td>
                                 <td>{itemsArray.category_id}</td>
                                 <td>{itemsArray.store_id}</td>
 
-                                <td><button onClick={ () => this.editButton(itemsArray.id, itemsArray.status) }>{itemsArray.status?<>Done</>:<>TO Do</>}</button></td>
                                 <td><button name={itemsArray.id} onClick={(event)=>this.deleteButton(event, itemsArray.id)}>Delete</button></td>
                             </tr>
                         ))}
